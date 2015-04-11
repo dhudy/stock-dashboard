@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root 'sign_in#index'
   get 'auth/facebook/callback', to: 'sign_in#create'
   get 'auth/failure', to: 'sign_in#failure'
+  get 'welcome', to: 'welcome#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
