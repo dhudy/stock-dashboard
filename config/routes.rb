@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'sign_in#index'
+  root 'welcome#index'
   get 'auth/facebook/callback', to: 'sign_in#create'
   get 'auth/failure', to: 'sign_in#failure'
   get 'welcome', to: 'welcome#index'
