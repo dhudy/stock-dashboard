@@ -240,12 +240,14 @@
             <ul class="nav" id="side-menu">
                 <li class="sidebar-search">
                     <div class="input-group custom-search-form">
+                        <%= form_tag {controller: "people", action: "search"}, method: "get", class: "input-group custom-search-form" %>
                         <input type="text" class="form-control" placeholder="Stock Lookup">
                         <span class="input-group-btn">
                             <button id="stocklookup" class="btn btn-default" type="button">
                                 <i class="fa fa-search"></i>
                             </button>
                         </span>
+                        <% end %>
                     </div>
                     <!-- /input-group -->
                 </li>

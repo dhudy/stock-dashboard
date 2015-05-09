@@ -14,6 +14,10 @@ class WelcomeController < ApplicationController
       # raise @posts.inspect
 	  myself = @graph.get_object('me')
 	  # raise myself.inspect
+
+	  if params['lookup']
+
+	  end
     else
       @user = nil
     end

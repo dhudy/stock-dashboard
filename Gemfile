@@ -13,7 +13,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'coffee-script-source', '1.8.0'
 gem "bower-rails", "~> 0.9.2"
-gem "therubyracer"
+gem 'therubyracer', :platform => :ruby
 gem "less-rails"
 gem 'twitter-bootstrap-rails'
 gem 'morrisjs-rails'
