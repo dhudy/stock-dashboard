@@ -1,6 +1,6 @@
 require 'koala'
 class WelcomeController < ApplicationController
-	before_action :authenticate_user!
+	# before_action :authenticate_user!
   def index
   	# raise current_user.inspect
     unless current_user.nil?
