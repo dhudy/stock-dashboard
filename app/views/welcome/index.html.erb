@@ -1,8 +1,16 @@
-<% if @user %>
-  <h1> Welcome <%= @user.name %> to the second damn version of this site </h1>
-<% else %>
-  <h1> Go fucking sign in </h1>
-<% end %>
-<% if @user.nil? %>
-  <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
-<% end %>
+<div class="panel-body">
+	<% if @user %>
+  		<h1> Welcome <%= @user.name %> to the second damn version of this site </h1>
+	<% else %>
+  		<h1> Go fucking sign in </h1>
+	<% end %>
+
+	<% if @user.nil? %>
+		<a class="btn btn-block btn-social btn-facebook">
+        	<i class="fa fa-facebook"></i> Sign in with Facebook
+    	</a>
+  		<%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+	<% end %>
+    
+</div>
+

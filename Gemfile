@@ -12,11 +12,15 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 gem 'coffee-script-source', '1.8.0'
+gem "bower-rails", "~> 0.9.2"
+gem "therubyracer"
+gem "less-rails"
+gem 'twitter-bootstrap-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 gem 'devise'
 gem 'omniauth-facebook', '1.5.1'
-gem 'koala'
+gem "koala", "~> 2.0"
 gem 'tzinfo-data'
 gem 'figaro'
 # Use jquery as the JavaScript library
