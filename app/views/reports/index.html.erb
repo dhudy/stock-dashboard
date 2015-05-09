@@ -1,3 +1,7 @@
+<%= javascript_tag do %>
+  window.productsURL = "test";
+<% end %>
+
 <div class="panel-body">
 	<% if @report.nil? %>
 		<h1> Error: Invalid Stock Symbol </h1>
@@ -43,13 +47,24 @@
 					<div class="panel panel-danger">
 				<% end %>
                     <div class="panel-heading">
-                        Basic Info
+                        <%= @report['ChangePercent'] >= 0 ? "Up #{number_with_precision(@report['ChangePercent'], precision: 3)}%" : "Down #{number_with_precision(@report['ChangePercent'], precision: 3)}%" %>
                     </div>
                     <div class="panel-body">
                     	<ul>
-                    		<li>Name: <%= @report['Name'] %> (<%= @report['Symbol'] %>)</li>
-                    		<li>Price: <%= @report['LastPrice'] %> </li>
+                    		<li><strong>Name</strong>:<%= @report['Name'] %> (<%= @report['Symbol'] %>)</li>
+                    		<li><strong>Price</strong>: <%= @report['LastPrice'] %> </li>
+                    		<li><strong>Change</strong>: <%= number_with_precision(@report['Change'], precision: 2) %></li>
                     	</ul>
+                    	<%= form_tag("/stocks", method: "post") do %>
+                        <div class="input-group custom-search-form">
+                            <%= text_field_tag 'amount', nil, placeholder: "# Of Shares", class: "form-control" %>
+                            <span class="input-group-btn">
+                                <%= button_tag(type: "submit", class: "btn btn-default") do %>
+                                Purchase
+                            <% end %>
+                            </span>
+                        </div>
+                    <% end %>
                     </div>
                     <div class="panel-footer">
                     	<p>Last Updated: <%= @report['Timestamp'] %> </p>
