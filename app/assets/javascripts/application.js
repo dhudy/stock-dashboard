@@ -15,5 +15,7 @@
 //= require twitter/bootstrap
 //= require raphael
 //= require morris
+//= require highcharts
+//= require highcharts/highcharts-more
 //= require turbolinks
 //= require_tree .

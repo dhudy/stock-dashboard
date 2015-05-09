@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'auth/failure', to: 'sign_in#failure'
   get 'welcome', to: 'welcome#index'
   get 'reports', to: 'reports#index'
+  get 'calendar', to: 'calendar#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

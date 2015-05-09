@@ -239,16 +239,16 @@
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
                 <li class="sidebar-search">
-                    <div class="input-group custom-search-form">
-                        <%= form_tag {controller: "people", action: "search"}, method: "get", class: "input-group custom-search-form" %>
-                        <input type="text" class="form-control" placeholder="Stock Lookup">
-                        <span class="input-group-btn">
-                            <button id="stocklookup" class="btn btn-default" type="button">
+                    <%= form_tag("/reports", method: "get") do %>
+                        <div class="input-group custom-search-form">
+                            <%= text_field_tag 'lookup', nil, placeholder: "Stock Lookup", class: "form-control" %>
+                            <span class="input-group-btn">
+                                <%= button_tag(type: "submit", class: "btn btn-default") do %>
                                 <i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                        <% end %>
-                    </div>
+                            <% end %>
+                            </span>
+                        </div>
+                    <% end %>
                     <!-- /input-group -->
                 </li>
                 <% if notice %>
@@ -278,7 +278,9 @@
                     <% end %>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-calendar fa-fw"></i> Calendar</a>
+                    <%= link_to calendar_path do %>
+                        <i class="fa fa-calendar fa-fw"></i> Calendar
+                    <% end %>
                 </li>
                 <li style="height: 180px;">
                     <div class="chat-panel panel panel-default">
