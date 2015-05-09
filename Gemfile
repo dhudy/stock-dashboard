@@ -16,6 +16,8 @@ gem "bower-rails", "~> 0.9.2"
 gem "therubyracer"
 gem "less-rails"
 gem 'twitter-bootstrap-rails'
+gem 'morrisjs-rails'
+gem 'raphael-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 gem 'devise'
