@@ -101,13 +101,13 @@ $(function() {
     Morris.Donut({
         element: 'morris-donut-chart',
         data: [{
-            label: "Download Sales",
+            label: "Stock 1",
             value: 12
         }, {
-            label: "In-Store Sales",
+            label: "Stock 2",
             value: 30
         }, {
-            label: "Mail-Order Sales",
+            label: "Stock 3",
             value: 20
         }],
         resize: true

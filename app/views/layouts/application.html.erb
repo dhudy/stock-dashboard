@@ -15,7 +15,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">Super Stock Portal</a>
+        <a class="navbar-brand" href="index.html">
+            Super Stock Portal
+        </a> 
     </div>
     <!-- /.navbar-header -->
 
@@ -217,11 +219,10 @@
             <ul class="dropdown-menu dropdown-user">
                 <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                 </li>
-                <li><a class="btn btn-block btn-social btn-facebook">
+                <li><%= link_to user_omniauth_authorize_path(:facebook) do %>
                         <i class="fa fa-facebook"></i> Sign in with Facebook
-                    </a>
+                    <% end %>
                 </li>
-                <li><%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %></li>
                 <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                 </li>
                 <li class="divider"></li>
@@ -239,26 +240,43 @@
             <ul class="nav" id="side-menu">
                 <li class="sidebar-search">
                     <div class="input-group custom-search-form">
-                        <input type="text" class="form-control" placeholder="Search...">
+                        <input type="text" class="form-control" placeholder="Stock Lookup">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
+                            <button id="stocklookup" class="btn btn-default" type="button">
                                 <i class="fa fa-search"></i>
                             </button>
                         </span>
                     </div>
                     <!-- /input-group -->
                 </li>
+                <% if notice %>
                 <li>
-                    <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    <div class="alert alert-info alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <%= notice %>
+                    </div>
+                </li>
+                <% end %>
+                <% if alert %>
+                <li>
+                    <div class="alert alert-info alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <%= alert %>.
+                    </div>
+                </li>
+                <% end %>
+                <li>
+                    <%= link_to welcome_path do %>
+                        <i class="fa fa-dashboard fa-fw"></i> Dashboard
+                    <% end %>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Stock Reports</a>
+                    <%= link_to reports_path do %>
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Stock Reports
+                    <% end %>
                 </li>
                 <li>
-                    <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
-                </li>
-                <li>
-                    <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
+                    <a href="#"><i class="fa fa-calendar fa-fw"></i> Calendar</a>
                 </li>
                 <li style="height: 180px;">
                     <div class="chat-panel panel panel-default">
@@ -386,8 +404,6 @@
     <!-- /.navbar-static-side -->
 </nav>
 <div id="page-wrapper">
-	<p class="notice"><%= notice %></p>
-	<p class="alert"><%= alert %></p>
 	<%= yield %>
 </div>
 </body>
