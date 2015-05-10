@@ -1,19 +1,19 @@
 <div class="panel-body">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <i class="fa fa-clock-o fa-fw"></i> Stock History
+            <i class="fa fa-clock-o fa-fw"></i> Your Activity History
         </div>
         <!-- /.panel-heading -->
         <div class="panel-body">
             <ul class="timeline">
-                <% @transactions.each do |k, v| %>
+                <% @transactions.each_index do |k| %>
                     <% if k%2 == 0 %>
                         <li>
                     <% else %>
                         <li class="timeline-inverted">
                     <% end %>
                         <div class="timeline-badge">
-                            <% if v.transaction_type == "Sale" %>
+                            <% if @transactions[k].transaction_type == "Sale" %>
                                 <i class="fa fa-minus"></i>
                             <% else %>
                                 <i class="fa fa-plus"></i>
@@ -21,12 +21,12 @@
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4 class="timeline-title"><%= v.transaction_type %> of <%= v.stock.symbol %> stock</h4>
-                                <p><small class="text-muted"><i class="fa fa-clock-o"></i> <%= v.created_at %></small>
+                                <h4 class="timeline-title"><%= @transactions[k].transaction_type %> of <%= @transactions[k].stock.symbol %> stock (<%= @transactions[k].value %>)</h4>
+                                <p><small class="text-muted"><i class="fa fa-clock-o"></i> <%= @transactions[k].created_at %></small>
                                 </p>
                             </div>
                             <div class="timeline-body">
-                                <p><%= v.notes %></p>
+                                <p><%= @transactions[k].notes %></p>
                             </div>
                         </div>
                     </li>

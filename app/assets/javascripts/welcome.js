@@ -116,3 +116,56 @@ $(function() {
     });
 	
 });
+$("#topTable").onload = setupStocks();
+setInterval(updateStocks, 60000);
+
+function setupStocks() {
+	$.ajax({
+		url: '/stocks',
+		dataType: 'json'
+	}).done(function(data) {
+		if(data.length < 1) {
+			$('#topTable').find('tbody')
+				.append($('<h3>')
+					.text("Purchase stocks for their prices to appear here.")
+				)
+		} else {
+			for (i = 0; i < data.length; i++) {
+				$('#topTable').find('tbody')
+					.append($("<tr>")
+						.append($("<td id=name-" + i + ">")
+							.text(data[i]["Name"])
+						)
+						.append($("<td id=symbol-" + i + ">")
+							.text(data[i]["Symbol"])
+						)
+						.append($("<td id=price-" + i + ">")
+							.text("$" + data[i]["LastPrice"].toFixed(2))
+						)
+						.append($("<td id=change-" + i + ">")
+							.text(data[i]["ChangePercent"].toFixed(2) + "%")
+						)
+					)
+			}
+		}
+	});
+}
+
+function updateStocks() {
+	$.ajax({
+		url: '/stocks',
+		dataType: 'json'
+	}).done(function(data) {
+		if(data.length < 1) {
+			$('#topTable').find('tbody h3')
+				.text("Purchase stocks for their prices to appear.")
+		} else {
+			for (i = 0; i < data.length; i++) {
+				$("#name-" + i + "").text(data[i]["Name"]);
+				$("#symbol-" + i + "").text(data[i]["Symbol"]);
+				$("#price-" + i + "").text(data[i]["LastPrice"].toFixed(2));
+				$("#change-" + i + "").text(data[i]["ChangePercent"].toFixed(2));
+			}
+		}
+	});
+}

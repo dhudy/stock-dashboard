@@ -18,19 +18,23 @@ class ReportsController < ApplicationController
 		      c.use Faraday::Response::Logger     # log request & response to STDOUT
 		      c.use Faraday::Adapter::NetHttp     # perform requests with Net::HTTP
 		    end
-		    @report = JSON.parse(remote_conn.get("JSON?symbol=#{@symbol.first['Symbol']}").body)
-		    if @report['Message']
+		    unless @symbol.blank?
+			    @report = JSON.parse(remote_conn.get("JSON?symbol=#{@symbol.first['Symbol']}").body)
+			    if @report['Message']
+			    	@report = nil
+			    end
+			    @stock = Stock.find_or_create_by(symbol: "#{@symbol.first['Symbol']}", user: current_user)
+			    # raise @report.inspect
+			    @transactions = {}
+			    counter = 0
+			    # raise @stock.inspect
+		    	@stock.transactions.order('created_at DESC').each do |t|
+		    		@transactions[counter] = t
+		    		counter = counter + 1
+		    	end
+		    else
 		    	@report = nil
 		    end
-		    @stock = Stock.find_or_create_by(symbol: "#{@symbol.first['Symbol']}", user: current_user)
-		    # raise @report.inspect
-		    @transactions = {}
-		    counter = 0
-		    # raise @stock.inspect
-	    	@stock.transactions.each do |t|
-	    		@transactions[counter] = t
-	    		counter = counter + 1
-	    	end
 		end
 	end
 
@@ -41,7 +45,7 @@ class ReportsController < ApplicationController
 		@stock.amount.nil? ? @stock.amount = 0 : @stock.amount
 		@stock.amount = @stock.amount + params['amount'].to_i
 		value = params['price'] * params['amount'].to_i
-		@stock.transactions.create(stock: @stock, transaction_type: "Purchase", value: value, notes: params['notes'])
+		@stock.transactions.create(stock: @stock, user: user, transaction_type: "Purchase", value: value, notes: params['notes'])
 		@stock.save
 		flash[:notice] = "Successfully Purchased Stock."
 		redirect_to :controller => 'reports', :action => 'index', :lookup => params['symbol']
