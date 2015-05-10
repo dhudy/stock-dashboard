@@ -21,7 +21,7 @@
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4 class="timeline-title"><%= @transactions[k].transaction_type %> of <%= @transactions[k].stock.symbol %> stock (<%= @transactions[k].value %>)</h4>
+                                <h4 class="timeline-title"><%= @transactions[k].transaction_type %> of <%= @transactions[k].stock.symbol %> stock ($<%= number_with_precision(@transactions[k].value, precision: 2) %>)</h4>
                                 <p><small class="text-muted"><i class="fa fa-clock-o"></i> <%= @transactions[k].created_at %></small>
                                 </p>
                             </div>

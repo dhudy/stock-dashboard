@@ -15,7 +15,41 @@ class WelcomeController < ApplicationController
 	  @myself = @graph.get_connection('me', 'statuses',
 	  	{limit: 1,
 	  		fields: ['message', 'id', 'created_time', 'updated_time']})
-	  # raise @myself['message']
+  		chart_data = {
+			:height => 400,
+			:width => 600,
+			:type => 'mscolumn2d',
+			:renderAt => 'chart-container',
+			:dataSource => {
+				:chart => {
+					:caption => 'Comparison of Stock High/Open/Low',
+					:subCaption => 'Your Stock',
+					:xAxisname => 'Stock',
+					:yAxisName => 'Amount ($)',
+					:numberPrefix => '$',
+					:theme => 'fint',
+				},
+				:categories => [{
+					:category => []
+				}],
+				:dataset =>  [{
+					:seriesname => 'High',
+					:data =>  []},{
+					:seriesname => 'Open',
+					:data =>  []},{
+					:seriesname => 'Low',
+					:data =>  []}
+				]
+			}
+		}
+		
+		@user.stocks.each do |stock|
+			chart_data[:dataSource][:dataset][0][:data] << { value: stock.high.to_s }
+			chart_data[:dataSource][:dataset][1][:data] << { value: stock.open.to_s }
+			chart_data[:dataSource][:dataset][2][:data] << { value: stock.low.to_s }
+			chart_data[:dataSource][:categories][0][:category] << { label: stock.symbol }
+		end
+		@chart = Fusioncharts::Chart.new(chart_data)
     else
       @user = nil
     end

@@ -27,6 +27,10 @@ class StocksController < ApplicationController
 	    @stock_reports = [];
 	    current_user.stocks.each do |stock|
 	    	report = JSON.parse(remote_conn.get("JSON?symbol=#{stock.symbol}").body)
+	    	stock.high = report["High"]
+	    	stock.low = report["Low"]
+	    	stock.open = report["Open"]
+	    	stock.save
 	    	@stock_reports << report
 	    end
 	    # raise @stock_reports.inspect
