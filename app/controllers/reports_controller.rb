@@ -22,16 +22,15 @@ class ReportsController < ApplicationController
 		    if @report['Message']
 		    	@report = nil
 		    end
-		    @stock = Stock.find_by(symbol: "#{@symbol.first['Symbol']}")
+		    @stock = Stock.find_or_create_by(symbol: "#{@symbol.first['Symbol']}", user: current_user)
 		    # raise @report.inspect
 		    @transactions = {}
 		    counter = 0
-		    current_user.stocks.each do |stock|
-		    	stock.transactions.each do |t|
-		    		@transactions[counter] = t
-		    		counter = counter + 1
-		    	end
-		    end
+		    # raise @stock.inspect
+	    	@stock.transactions.each do |t|
+	    		@transactions[counter] = t
+	    		counter = counter + 1
+	    	end
 		end
 	end
 
@@ -41,10 +40,12 @@ class ReportsController < ApplicationController
 		@stock = Stock.find_or_create_by(symbol: params['symbol'], user_id: user.id)
 		@stock.amount.nil? ? @stock.amount = 0 : @stock.amount
 		@stock.amount = @stock.amount + params['amount'].to_i
-		value = params['price']
+		value = params['price'] * params['amount'].to_i
 		@stock.transactions.create(stock: @stock, transaction_type: "Purchase", value: value, notes: params['notes'])
 		@stock.save
+		flash[:notice] = "Successfully Purchased Stock."
 		redirect_to :controller => 'reports', :action => 'index', :lookup => params['symbol']
 		# redirect_to reports_path, lookup: params['symbol']
 	end
+
 end

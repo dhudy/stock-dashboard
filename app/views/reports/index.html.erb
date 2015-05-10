@@ -51,7 +51,12 @@
 	                    		<% else %>
 	                    			<li class="timeline-inverted">
 	                    		<% end %>
-		                            <div class="timeline-badge"><i class="fa fa-dollar"></i>
+		                            <div class="timeline-badge">
+		                            	<% if v.transaction_type == "Sale" %>
+		                            		<i class="fa fa-minus"></i>
+	                            		<% else %>
+	                            			<i class="fa fa-plus"></i>
+	                            		<% end %>
 		                            </div>
 		                            <div class="timeline-panel">
 		                                <div class="timeline-heading">
@@ -88,7 +93,7 @@
                     		<li><strong>Price</strong>: <%= @report['LastPrice'] %> </li>
                     		<li><strong>Change</strong>: <%= number_with_precision(@report['Change'], precision: 2) %></li>
                     		<li><strong>You Own</strong>: <%= @stock.amount.nil? ? "" : @stock.amount %> shares</li>
-                    		<li><strong>Net Worth</strong>: $<%= @stock.value(@report['LastPrice']).nil? ? "" : number_with_precision(@stock.value(@report['LastPrice']), precision: 2)%></li>
+                    		<li><strong>Net Worth</strong>: $<%= @stock.value(1).nil? ? "0.00" : number_with_precision(@stock.value(@report['LastPrice']), precision: 2)%></li>
                     	</ul>
                     	<%= form_tag("/reports", method: "purchase") do %>
                         <div class="input-group custom-search-form">
@@ -110,6 +115,34 @@
                     </div>
                 </div>	
 			</div>
+
+            <div class="col-lg-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Sell Stock
+                    </div>
+                    <div class="panel-body">
+                        <%= form_tag("/stocks", method: "post") do %>
+	                        <div class="input-group custom-search-form">
+	                            <%= text_field_tag 'amount', nil, placeholder: "# Of Shares", class: "form-control" %>
+	                            <span class="input-group-btn">
+	                                <%= button_tag(type: "submit", class: "btn btn-default") do %>
+	                                	Sell
+	                            	<% end %>
+	                            </span>
+	                        </div>
+	                        <%= text_area_tag 'notes', nil, placeholder: "Notes on sale", style: "width: 100%;" %>
+	                        <%= hidden_field_tag :symbol, @report['Symbol'] %>
+	                        <%= hidden_field_tag :name, @report['Name'] %>
+	                        <%= hidden_field_tag :price, @report['LastPrice'] %>
+	                    <% end %>
+                    </div>
+                    <div class="panel-footer">
+                        All sales are final.
+                    </div>
+                </div>
+            </div>
+
 		</div>
 	<% end %>
 </div>

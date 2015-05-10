@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'calendar', to: 'calendar#index'
   get 'activity', to: 'activity#index'
   post 'reports', to: 'reports#purchase'
+  post 'stocks', to: 'stocks#sell'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
