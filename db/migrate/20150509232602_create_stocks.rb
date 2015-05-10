@@ -3,7 +3,7 @@ class CreateStocks < ActiveRecord::Migration
     create_table :stocks do |t|
       t.string :symbol
       t.integer :amount
-
+      
       t.timestamps
     end
   end

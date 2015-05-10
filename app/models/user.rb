@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :omniauthable, :omniauth_providers => [:facebook]
-
+  has_many :stocks
   def self.from_omniauth(auth)
     # unless Rails.env.development?
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

@@ -54,8 +54,9 @@
                     		<li><strong>Name</strong>:<%= @report['Name'] %> (<%= @report['Symbol'] %>)</li>
                     		<li><strong>Price</strong>: <%= @report['LastPrice'] %> </li>
                     		<li><strong>Change</strong>: <%= number_with_precision(@report['Change'], precision: 2) %></li>
+                    		<li><strong>You Own</strong>: <%= @stock.amount.nil? ? "" : @stock.amount %></li>
                     	</ul>
-                    	<%= form_tag("/stocks", method: "post") do %>
+                    	<%= form_tag("/reports", method: "purchase") do %>
                         <div class="input-group custom-search-form">
                             <%= text_field_tag 'amount', nil, placeholder: "# Of Shares", class: "form-control" %>
                             <span class="input-group-btn">
@@ -64,6 +65,10 @@
                             <% end %>
                             </span>
                         </div>
+                        <%= text_area_tag 'notes', nil, placeholder: "Notes on purchase", style: "width: 100%;" %>
+                        <%= hidden_field_tag :symbol, @report['Symbol'] %>
+                        <%= hidden_field_tag :name, @report['Name'] %>
+                        <%= hidden_field_tag :price, @report['LastPrice'] %>
                     <% end %>
                     </div>
                     <div class="panel-footer">
