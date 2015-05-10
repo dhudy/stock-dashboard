@@ -38,6 +38,39 @@
 	                </div>
 	                <!-- /.panel-body -->
 	            </div>
+	            <div class="panel panel-default">
+	                <div class="panel-heading">
+	                    <i class="fa fa-clock-o fa-fw"></i> Stock History
+	                </div>
+	                <!-- /.panel-heading -->
+	                <div class="panel-body">
+	                    <ul class="timeline">
+	                    	<% @transactions.each do |k, v| %>
+	                    		<% if k%2 == 0 %>
+	                    			<li>
+	                    		<% else %>
+	                    			<li class="timeline-inverted">
+	                    		<% end %>
+		                            <div class="timeline-badge"><i class="fa fa-dollar"></i>
+		                            </div>
+		                            <div class="timeline-panel">
+		                                <div class="timeline-heading">
+		                                    <h4 class="timeline-title"><%= v.transaction_type %></h4>
+		                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> <%= v.created_at %></small>
+		                                    </p>
+		                                </div>
+		                                <div class="timeline-body">
+		                                    <p><%= v.notes %></p>
+		                                </div>
+		                            </div>
+		                        </li>
+	                    	<% end %>
+	                    </ul>
+	                </div>
+	                <!-- /.panel-body -->
+	            </div>
+	            <!-- /.panel -->
+
 			</div>
 
 			<div class="col-lg-4">
@@ -54,7 +87,8 @@
                     		<li><strong>Name</strong>:<%= @report['Name'] %> (<%= @report['Symbol'] %>)</li>
                     		<li><strong>Price</strong>: <%= @report['LastPrice'] %> </li>
                     		<li><strong>Change</strong>: <%= number_with_precision(@report['Change'], precision: 2) %></li>
-                    		<li><strong>You Own</strong>: <%= @stock.amount.nil? ? "" : @stock.amount %></li>
+                    		<li><strong>You Own</strong>: <%= @stock.amount.nil? ? "" : @stock.amount %> shares</li>
+                    		<li><strong>Net Worth</strong>: $<%= @stock.value(@report['LastPrice']).nil? ? "" : number_with_precision(@stock.value(@report['LastPrice']), precision: 2)%></li>
                     	</ul>
                     	<%= form_tag("/reports", method: "purchase") do %>
                         <div class="input-group custom-search-form">

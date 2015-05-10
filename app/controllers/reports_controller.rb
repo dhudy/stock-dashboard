@@ -24,17 +24,27 @@ class ReportsController < ApplicationController
 		    end
 		    @stock = Stock.find_by(symbol: "#{@symbol.first['Symbol']}")
 		    # raise @report.inspect
+		    @transactions = {}
+		    counter = 0
+		    current_user.stocks.each do |stock|
+		    	stock.transactions.each do |t|
+		    		@transactions[counter] = t
+		    		counter = counter + 1
+		    	end
+		    end
 		end
 	end
 
 	def purchase
+		# raise params.inspect
 		user = current_user
 		@stock = Stock.find_or_create_by(symbol: params['symbol'], user_id: user.id)
 		@stock.amount.nil? ? @stock.amount = 0 : @stock.amount
 		@stock.amount = @stock.amount + params['amount'].to_i
 		value = params['price']
-		@stock.transactions.create(stock: @stock, transaction_type: "Purchase", value: value)
+		@stock.transactions.create(stock: @stock, transaction_type: "Purchase", value: value, notes: params['notes'])
 		@stock.save
-		redirect_to welcome_path
+		redirect_to :controller => 'reports', :action => 'index', :lookup => params['symbol']
+		# redirect_to reports_path, lookup: params['symbol']
 	end
 end

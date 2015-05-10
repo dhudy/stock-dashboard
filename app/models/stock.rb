@@ -2,11 +2,8 @@ class Stock < ActiveRecord::Base
 	has_many :transactions
 	belongs_to :user
 
-	def value
-		value = 0
-		transactions.each do |transaction|
-			value = value + transaction.value
-		end
+	def value(current_price)
+		value = amount * current_price
 		value
 	end
 end
