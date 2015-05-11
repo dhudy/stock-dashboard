@@ -106,7 +106,7 @@ Run this command
 	rspec selenium.rb
 
 	
-From the test directory (/stock-dashboard/test)
+From the test directory (/stock-dashboard/test/selenium)
 
 #Deployment instructions
 
