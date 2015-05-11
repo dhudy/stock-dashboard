@@ -1,3 +1,41 @@
 <div class="panel-body">
+	<div class="modal fade" id="newEvent">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Modal title</h4>
+	      </div>
+	      <%= form_tag("/events", method: "new") do %>
+	      <div class="modal-body">
+	        <%= label_tag 'title', 'Event Title' %>
+	        <%= text_field_tag 'title', nil, placeholder: "", class: "form-control" %>
+	        <%= label_tag 'start', 'Start Time' %>
+	        <div class='input-group date' id='datetimepicker1'>
+                <%= text_field_tag 'startTime', nil, class: "form-control" %>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+            <%= label_tag 'end', 'End Time' %>
+            <div class='input-group date' id='datetimepicker2'>
+            	<%= text_field_tag 'endTime', nil, class: "form-control" %>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+            <%= label_tag 'description', 'Description' %>
+            <%= text_area_tag 'description', nil, placeholder: "", style: "width: 100%;" %>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <%= button_tag(type: "submit", class: "btn btn-primary") do %>
+	        	Save Changes
+	        <% end %>
+	      </div>
+	      <% end %>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 	<div id='calendar'></div>
 </div>

@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :omniauthable, :omniauth_providers => [:facebook]
   has_many :stocks
   has_many :transactions
+  has_many :events
   def self.from_omniauth(auth)
     # unless Rails.env.development?
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

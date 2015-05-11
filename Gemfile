@@ -13,6 +13,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'coffee-script-source', '1.8.0'
 gem 'fusioncharts-rails'
+gem 'bootstrap3-datetimepicker-rails'
 gem 'momentjs-rails'
 gem 'fullcalendar-rails'
 gem "bower-rails", "~> 0.9.2"

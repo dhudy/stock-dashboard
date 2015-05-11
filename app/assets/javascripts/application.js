@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require moment
 //= require twitter/bootstrap
+//= require bootstrap-datetimepicker
 //= require raphael
 //= require morris
 //= require fullcalendar
