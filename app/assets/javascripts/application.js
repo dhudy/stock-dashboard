@@ -12,9 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require moment
 //= require twitter/bootstrap
 //= require raphael
 //= require morris
+//= require fullcalendar
 //= require fusioncharts/fusioncharts
 //= require fusioncharts/fusioncharts.charts
 //= require fusioncharts/themes/fusioncharts.theme.fint
