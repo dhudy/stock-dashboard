@@ -7,7 +7,7 @@ class EventsController < ApplicationController
 	end
 
 	def new
-		current_user.events.create(start: DateTime.strptime(params[:startTime], '%m/%d/%Y %I:%M %p'), end: DateTime.strptime(params[:endTime], '%m/%d/%Y %I:%M %p'), title: params[:title], description: params[:description])
+		current_user.events.create(start: DateTime.strptime(params[:startTime], '%m/%d/%Y %I:%M %p'), end: DateTime.strptime(params[:endTime], '%m/%d/%Y %I:%M %p'), title: params[:title], description: params[:description], user: current_user)
 		redirect_to calendar_path
 	end
 end
