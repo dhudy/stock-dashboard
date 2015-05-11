@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
 	def events
 		# raise params.inspect
-		@events = Event.where(start: (DateTime.parse(params[:start]))..DateTime.parse(params[:end]))
+		@events = current_user.events.where(start: (DateTime.parse(params[:start]))..DateTime.parse(params[:end]))
 		# raise @events.inspect
 		render json: @events
 	end
