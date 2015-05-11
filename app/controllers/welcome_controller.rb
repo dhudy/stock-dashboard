@@ -44,7 +44,7 @@ class WelcomeController < ApplicationController
 		}
 		
 		@user.stocks.each do |stock|
-			if stock.amount > 0
+			unless stock.amount < 0 || stock.amount.nil?
 				chart_data[:dataSource][:dataset][0][:data] << { value: stock.high.to_s }
 				chart_data[:dataSource][:dataset][1][:data] << { value: stock.open.to_s }
 				chart_data[:dataSource][:dataset][2][:data] << { value: stock.low.to_s }
