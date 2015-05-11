@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :stocks
   has_many :transactions
   has_many :events
+  has_many :comments, dependent: :delete_all
   def self.from_omniauth(auth)
     # unless Rails.env.development?
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

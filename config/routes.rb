@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'comments/new'
+
+  get 'comments/create'
+
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -17,6 +21,7 @@ Rails.application.routes.draw do
   get 'stocks', to: 'stocks#top'
   get 'events', to: 'events#events'
   post 'events', to: 'events#new'
+  resources :comments, only: [:new, :create]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
