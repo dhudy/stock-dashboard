@@ -8,6 +8,7 @@
 	      </div>
 	      <%= form_tag("/events", method: "new") do %>
 	      <div class="modal-body">
+      		<%= hidden_field_tag :user_id, @user.id %>
 	        <%= label_tag 'title', 'Event Title' %>
 	        <%= text_field_tag 'title', nil, placeholder: "", class: "form-control" %>
 	        <%= label_tag 'start', 'Start Time' %>
