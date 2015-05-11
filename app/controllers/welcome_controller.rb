@@ -44,13 +44,15 @@ class WelcomeController < ApplicationController
 		}
 		
 		@user.stocks.each do |stock|
-			if stock.amount > 0
-				chart_data[:dataSource][:dataset][0][:data] << { value: stock.high.to_s }
-				chart_data[:dataSource][:dataset][1][:data] << { value: stock.open.to_s }
-				chart_data[:dataSource][:dataset][2][:data] << { value: stock.low.to_s }
-				chart_data[:dataSource][:categories][0][:category] << { label: stock.symbol }
+			unless stock.amount.nil?
+				if stock.amount > 0
+					chart_data[:dataSource][:dataset][0][:data] << { value: stock.high.to_s }
+					chart_data[:dataSource][:dataset][1][:data] << { value: stock.open.to_s }
+					chart_data[:dataSource][:dataset][2][:data] << { value: stock.low.to_s }
+					chart_data[:dataSource][:categories][0][:category] << { label: stock.symbol }
+				end
 			end
-		end
+		end unless @user.stocks.nil?
 		@chart = Fusioncharts::Chart.new(chart_data)
     else
       @user = nil
