@@ -3,10 +3,6 @@ class Stock < ActiveRecord::Base
 	belongs_to :user
 
 	def value(current_price)
-		if amount.nil?
-			return nil
-		end
-		value = amount * current_price
-		value
+		return amount * current_price unless amount.nil?
 	end
 end
